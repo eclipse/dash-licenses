@@ -123,6 +123,14 @@ public class Main {
 
 		collectors.forEach(IResultsCollector::close);
 
+		if (primaryCollector.getStatus() != 0 && !settings.isReview()) {
+			System.out.println("To automatically create a review for these items:\n\n"
+					+ "  - Get an authentication token from gitlab.eclipse.org\n"
+					+ "  - Include the \"-review\" option\n" //
+					+ "  - Pass that token via the \"-token\" option\n"
+					+ "  - Pass the project id (eg \"tools.wildwebdeveloper\") via the \"-project\" option\n\n"
+					+ "Please do not run this if you have more than dozen or so dependencies identified as requiring review. At least not yet.");
+		}
 		System.exit(primaryCollector.getStatus());
 	}
 
