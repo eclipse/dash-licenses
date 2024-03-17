@@ -1,0 +1,23 @@
+# This workflow will check for Maven projects if the licenses of all (transitive) dependencies are vetted.
+
+name: License vetting status check
+
+on:
+  push:
+    branches: 
+      - 'master'
+  pull_request:
+    branches: 
+     - 'master'
+  issue_comment:
+    types: [created]
+
+jobs:
+  call-license-check:
+    permissions:
+      pull-requests: write
+    uses: eclipse/dash-licenses/.github/workflows/mavenLicenseCheck.yml@master
+    with:
+      projectId: technology.dash
+    secrets:
+      gitlabAPIToken: ${{ secrets.DASH_GITLAB_API_TOKEN }}
